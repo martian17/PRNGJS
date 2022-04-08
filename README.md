@@ -2,14 +2,24 @@
 This prng module is based on the same algorithm Math.random() from V8 relies on (xorshift128+).
 Inspired by the V8 blogpost https://v8.dev/blog/math-random
 
-## Functions
-### `PRNG()`
-`PRNG` takes in an integer ranging from 0 to 4294967295 (max 32 bit unsigned integer), and returns a random number generation function `rng_function`  
+## Classes and Functions
+### `class PRNG`
+PRNG class stores the internal state of the rng, and provides various methods to initialize its state with arbitrary number of floats or ints.
+
+### `PRNG_SEEDINT()`
+`PRNG_SEEDINT` takes in 1, 2, or 4 integers and returns an instance of `PRNG.prototype.get()` method as a function.  
+The integer range must be from 0 to 4294967295 (max 32 bit unsigned integer)
 ```js
-PRNG(seed_number:int{0 < seed_number < MAX_UINT_32T}):rng_function
+PRNG_SEEDINT(seed_number:int{0 < seed_number < MAX_UINT_32T} ...):PRNG.prototype.get
 ```
-### `rng_function()`
-`rng_function()` takes in no argument, and returns a random number ranging 0 < n < 1.
+### `PRNG_SEEDFLOAT()`
+`PRNG_SEEDFLOAT` takes in 1, 2, or 4 floating point numbers and returns an instance of `PRNG.prototype.get()` method as a function.  
+There is no set range for the floating point numbers.
+```js
+PRNG_SEEDFLOAT(seed_number:float ...):PRNG.prototype.get
+```
+### `PRNG.prototype.get()`
+`PRNG.prototype.get()` takes in no argument, and returns a random number ranging 0 < n < 1.
 ```js
 rng_function():double{0 < n < 1}
 ```
@@ -17,10 +27,11 @@ rng_function():double{0 < n < 1}
 ## Uses
 node.js (as seen in example.js)
 ```js
-const {PRNG} = require("prng.js");
+const {PRNG,PRNG_SEEDFLOAT,PRNG_SEEDINT,uint64_t} = require("./main.js");
 
-let rng = PRNG((Math.random()*10000000)|0);
+let rng = PRNG_SEEDFLOAT(Math.random());
 for(let i = 0; i < 100; i++){
+    let r = rng();
     console.log(rng());
 }
 ```
@@ -29,8 +40,12 @@ js+html
 <script src="prngjs/main.js"></script>
 ```
 ```js
-let rng = PRNG((Math.random()*10000000)|0);
-for(let i = 0; i < 100; i++){
+let rng = PRNG_SEEDINT(114514,8101919);
+for(let i = 0; i < 100000000; i++){
+    let r = rng();
+    if(r < 0.0000001){
+        console.log(r);
+    }
     console.log(rng());
 }
 ```
