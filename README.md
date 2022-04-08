@@ -3,13 +3,13 @@ This prng module is based on the same algorithm Math.random() from V8 relies on 
 Inspired by the V8 blogpost https://v8.dev/blog/math-random
 
 ## Functions
+### `PRNG()`
 `PRNG` takes in an integer randing 0 to 4294967295 (max 32 bit unsigned integer), and returns a random number generation function `rng_function`  
-`PRNG()`
 ```js
 PRNG(seed_number:int{0 < seed_number < MAX_UINT_32T}):rng_function
 ```
+### `rng_function()`
 `rng_function()` takes in no argument, and returns a random number ranging from 0 < n < 1.
-`rng_function()`  
 ```js
 rng_function():double{0 < n < 1}
 ```
