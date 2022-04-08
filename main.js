@@ -136,7 +136,7 @@ let PRNG = function(seed) {
         return state0.clone().add(state1)
         //fit it into range 0<1
         .and(doubleMask1).or(doubleMask2)
-        .printf().toDouble()-1;
+        /*.printf()*/.toDouble()-1;
     }
 };
 
