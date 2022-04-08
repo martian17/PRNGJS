@@ -4,12 +4,12 @@ Inspired by the V8 blogpost https://v8.dev/blog/math-random
 
 ## Functions
 ### `PRNG()`
-`PRNG` takes in an integer randing 0 to 4294967295 (max 32 bit unsigned integer), and returns a random number generation function `rng_function`  
+`PRNG` takes in an integer ranging from 0 to 4294967295 (max 32 bit unsigned integer), and returns a random number generation function `rng_function`  
 ```js
 PRNG(seed_number:int{0 < seed_number < MAX_UINT_32T}):rng_function
 ```
 ### `rng_function()`
-`rng_function()` takes in no argument, and returns a random number ranging from 0 < n < 1.
+`rng_function()` takes in no argument, and returns a random number ranging 0 < n < 1.
 ```js
 rng_function():double{0 < n < 1}
 ```
