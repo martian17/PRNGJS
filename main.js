@@ -72,13 +72,13 @@ class uint64_t{
         let b1r = this.b&(-1>>>2);
         let a2r = n.a&(-1>>>2);
         let b2r = n.b&(-1>>>2);
-        
+
         let bb = b1r+b2r;
         //upper 2 bits
         let br = ((bb&~(-1>>>2))>>>30)+(this.b>>>30)+(n.b>>>30);
         let carry = br>>>2;//1 or 0
         this.b = (bb&(-1>>>2))|(br<<30);
-        
+
         let aa = a1r+a2r+carry;
         //upper 2 bits
         let ar = ((aa&~(-1>>>2))>>>30)+(this.a>>>30)+(n.a>>>30);
@@ -140,10 +140,13 @@ class PRNG{
         "00000000 00000000 00000000 00000000"+
         "00111111 11110000 00000000 00000000"
     );
-    constructor(){
-        let seed = 577911373;
+    constructor(seed0){
+        seed = 577911373;
         this.state0 = new uint64_t(0,seed);
         this.state1 = new uint64_t(0,~seed);
+        if(seed0){
+            this.seed_float1(seed0);
+        }
     }
     seed_float4(f1,f2,f3,f4){
         this.state0.a = doubleToInts(f1)[0];
@@ -193,7 +196,7 @@ class PRNG{
         s1.xor(s1.clone().shiftRight(17));
         s1.xor(s0);
         this.state1 = s1;
-        
+
         return this.state0.clone().add(this.state1)
         //fit it into range 0<1
         .and(this.constructor.doubleMask1).or(this.constructor.doubleMask2)
