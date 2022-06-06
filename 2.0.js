@@ -10,7 +10,7 @@ class PRNG{
         "00111111 11110000 00000000 00000000"
     );
     constructor(seed0){
-        seed = 577911373;
+        let seed = 577911373;
         this.state0 = new uint64_t(0,seed);
         this.state1 = new uint64_t(0,~seed);
         if(seed0){
