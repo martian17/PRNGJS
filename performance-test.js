@@ -1,5 +1,4 @@
 import {PRNG,PRNG_SEEDFLOAT,PRNG_SEEDINT,uint64_t} from "./index.js";
-import {PRNG_SEEDFLOAT as PRNG_SEEDFLOAT_0} from "./main.js";
 
 
 const randPerformance = function(rng,label){
@@ -17,10 +16,8 @@ const randPerformance = function(rng,label){
 };
 
 let rng = PRNG_SEEDFLOAT(Math.random());
-let rng0 = PRNG_SEEDFLOAT_0(Math.random());
 
-randPerformance(rng,"index.js (refactored)");
-randPerformance(rng0,"main.js (old)");
+randPerformance(rng,"index.js");
 randPerformance(Math.random,"Math.random");
 
 
