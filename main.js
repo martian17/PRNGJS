@@ -1,4 +1,4 @@
-let toBitString = function(n){
+export const toBitString = function(n){
     let s = "";
     for(let i = 31; i >= 0; i--){
         s += (n>>i)&1
@@ -6,7 +6,7 @@ let toBitString = function(n){
     return s;
 };
 
-let intsToDouble = (()=>{
+export const intsToDouble = (()=>{
     let buff = new ArrayBuffer(8);
     let ints = new Int32Array(buff);
     let floats = new Float64Array(buff);
@@ -17,7 +17,7 @@ let intsToDouble = (()=>{
     };
 })();
 
-let doubleToInts = (()=>{
+export const doubleToInts = (()=>{
     let buff = new ArrayBuffer(8);
     let ints = new Int32Array(buff);
     let floats = new Float64Array(buff);
@@ -131,7 +131,7 @@ class uint64_t{
 
 //prng algo: xorshift128+
 //as described in https://v8.dev/blog/math-random
-class PRNG{
+export class PRNG{
     static doubleMask1 = (new uint64_t()).fromBinary(
         "11111111 11111111 11111111 11111111"+
         "00000000 00001111 11111111 11111111"
@@ -141,7 +141,7 @@ class PRNG{
         "00111111 11110000 00000000 00000000"
     );
     constructor(seed0){
-        seed = 577911373;
+        const seed = 577911373;
         this.state0 = new uint64_t(0,seed);
         this.state1 = new uint64_t(0,~seed);
         if(seed0){
@@ -204,13 +204,13 @@ class PRNG{
     }
 };
 
-let PRNG_SEEDFLOAT = function(){
+export const PRNG_SEEDFLOAT = function(){
     let rng = new PRNG();
     rng.seed_float(...arguments);
     return rng.get.bind(rng);
 };
 
-let PRNG_SEEDINT = function(){
+export const PRNG_SEEDINT = function(){
     let rng = new PRNG();
     rng.seed_int(...arguments);
     return rng.get.bind(rng);
@@ -218,6 +218,6 @@ let PRNG_SEEDINT = function(){
 
 
 
-if(typeof module !== "undefined"){
-    module.exports = {PRNG,PRNG_SEEDFLOAT,PRNG_SEEDINT,uint64_t};
-}
+//f(typeof module !== "undefined"){
+//    module.exports = {PRNG,PRNG_SEEDFLOAT,PRNG_SEEDINT,uint64_t};
+//}

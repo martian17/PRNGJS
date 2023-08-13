@@ -1,4 +1,4 @@
-let toBitString = function(n){
+export const toBitString = function(n){
     let s = "";
     for(let i = 31; i >= 0; i--){
         s += (n>>i)&1
@@ -6,7 +6,7 @@ let toBitString = function(n){
     return s;
 };
 
-let intsToDouble = (()=>{
+export const intsToDouble = (()=>{
     let buff = new ArrayBuffer(8);
     let ints = new Int32Array(buff);
     let floats = new Float64Array(buff);
@@ -17,7 +17,7 @@ let intsToDouble = (()=>{
     };
 })();
 
-let doubleToInts = (()=>{
+export const doubleToInts = (()=>{
     let buff = new ArrayBuffer(8);
     let ints = new Int32Array(buff);
     let floats = new Float64Array(buff);
@@ -27,7 +27,7 @@ let doubleToInts = (()=>{
     };
 })();
 
-class uint64_t{
+export class uint64_t{
     constructor(a,b){
         this.a = a;
         this.b = b;

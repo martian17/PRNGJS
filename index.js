@@ -1,6 +1,10 @@
+import {uint64_t, doubleToInts} from "./typeutil.js";
+
+export {uint64_t as uint64_t};
+
 //prng algo: xorshift128+
 //as described in https://v8.dev/blog/math-random
-class PRNG{
+export class PRNG{
     static doubleMask1 = (new uint64_t()).fromBinary(
         "11111111 11111111 11111111 11111111"+
         "00000000 00001111 11111111 11111111"
@@ -73,13 +77,13 @@ class PRNG{
     }
 };
 
-let PRNG_SEEDFLOAT = function(){
+export const PRNG_SEEDFLOAT = function(){
     let rng = new PRNG();
     rng.seed_float(...arguments);
     return rng.get.bind(rng);
 };
 
-let PRNG_SEEDINT = function(){
+export const PRNG_SEEDINT = function(){
     let rng = new PRNG();
     rng.seed_int(...arguments);
     return rng.get.bind(rng);
@@ -87,6 +91,3 @@ let PRNG_SEEDINT = function(){
 
 
 
-if(typeof module !== "undefined"){
-    module.exports = {PRNG,PRNG_SEEDFLOAT,PRNG_SEEDINT,uint64_t};
-}
